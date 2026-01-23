@@ -82,8 +82,8 @@ body {
 
 /* Tema Light */
 .app.light {
-  background: #f5f5f5;
-  color: #333;
+  background: #f7f7f7;
+  color: #222;
 }
 
 .app.light .container {
@@ -127,10 +127,10 @@ body {
 .container {
   max-width: 900px;
   margin: 40px auto;
-  background: #23272b;
-  border-radius: 12px;
+  background: #fff;
+  border-radius: 8px;
   padding: 32px;
-  box-shadow: 0 4px 24px #0008;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
 }
 
 h1 {
@@ -176,13 +176,13 @@ h1 {
 .tema-toggle {
   display: block;
   margin: 0 auto 24px;
-  background: #2d8cf0;
+  background: #222;
   color: #fff;
   border: none;
-  border-radius: 6px;
-  padding: 10px 16px;
+  border-radius: 4px;
+  padding: 6px 14px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 1rem;
   transition: background 0.2s;
 }
 
@@ -192,20 +192,17 @@ h1 {
 
 .filtri {
   display: flex;
-  gap: 12px;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+  margin-top: 10px;
 }
 
 .filtri input,
 .filtri select {
-  background: #181a1b;
-  color: #f1f1f1;
-  border: 1px solid #444;
-  border-radius: 6px;
-  padding: 8px 12px;
-  outline: none;
-  font-size: 14px;
+  padding: 7px;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  font-size: 1rem;
 }
 
 .filtri input {
@@ -220,10 +217,8 @@ h1 {
 button.favorite {
   background: none;
   border: none;
-  font-size: 18px;
+  font-size: 1.3rem;
   cursor: pointer;
-  padding: 4px 8px;
-  transition: transform 0.2s;
 }
 
 button.favorite:hover {
@@ -231,21 +226,19 @@ button.favorite:hover {
 }
 
 tr.preferito {
-  background-color: #2d8cf0 !important;
-  opacity: 0.85;
+  background-color: #fffbe6;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  background: #181a1b;
-  border-radius: 8px;
-  overflow: hidden;
+  margin-top: 16px;
 }
 
 th, td {
-  padding: 12px 8px;
-  border-bottom: 1px solid #333;
+  padding: 10px 8px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
 }
 
 th {
@@ -258,15 +251,45 @@ tr:last-child td {
 }
 
 button.danger {
-  background: #e74c3c;
+  background: #dc3545;
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   padding: 6px 12px;
   cursor: pointer;
+  font-weight: bold;
   transition: background 0.2s;
 }
 
 button.danger:hover {
-  background: #c0392b;
+  background: #a71d2a;
+}
+
+.aggiungi-libro {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.aggiungi-libro input {
+  padding: 8px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.aggiungi-libro button {
+  padding: 8px 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.aggiungi-libro button:hover {
+  background: #0056b3;
 }

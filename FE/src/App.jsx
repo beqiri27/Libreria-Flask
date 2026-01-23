@@ -12,6 +12,14 @@ function App() {
   });
   const [preferiti, setPreferiti] = useState([]);
 
+  // Stato per il form di aggiunta libro
+  const [nuovoLibro, setNuovoLibro] = useState({
+    titolo: "",
+    autore: "",
+    anno: "",
+    genere: "",
+  });
+
   // Carica i libri all'avvio
   useEffect(() => {
     fetch(API_URL)
@@ -44,7 +52,25 @@ function App() {
     setLibri(libri.filter((l) => l.id !== id));
   };
 
+  // Gestione input form
+  const handleInputChange = (e) => {
+    setNuovoLibro({ ...nuovoLibro, [e.target.name]: e.target.value });
+  };
 
+  // Aggiungi libro
+  const handleAddLibro = async (e) => {
+    e.preventDefault();
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(nuovoLibro),
+    });
+    if (res.ok) {
+      const libroAggiunto = await res.json();
+      setLibri([...libri, libroAggiunto]);
+      setNuovoLibro({ titolo: "", autore: "", anno: "", genere: "" });
+    }
+  };
 
   // Filtra i libri in base ai filtri
   const libri_filtrati = libri.filter((libro) => {
@@ -67,67 +93,102 @@ function App() {
         <button className="tema-toggle" onClick={toggleTema}>
           {tema === "dark" ? "☀️ Tema Chiaro" : "🌙 Tema Scuro"}
         </button>
-      <div className="filtri">
-        <input
-          name="autore"
-          placeholder="Filtra per Autore"
-          value={filtri.autore}
-          onChange={handleFilterChange}
-        />
-        <select
-          name="genere"
-          value={filtri.genere}
-          onChange={handleFilterChange}
-        >
-          <option value="">Tutti i Generi</option>
-          {generiUnici.map((genere) => (
-            <option key={genere} value={genere}>
-              {genere}
-            </option>
-          ))}
-        </select>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Titolo</th>
-            <th>Autore</th>
-            <th>Anno</th>
-            <th>Genere</th>
-            <th>Preferito</th>
-            <th>Azioni</th>
-          </tr>
-        </thead>
-        <tbody>
-          {libri_filtrati.map((libro) => (
-            <tr key={libro.id} className={preferiti.includes(libro.id) ? "preferito" : ""}>
-              <td>{libro.id}</td>
-              <td>{libro.titolo}</td>
-              <td>{libro.autore}</td>
-              <td>{libro.anno}</td>
-              <td>{libro.genere}</td>
-              <td>
-                <button className="favorite" onClick={() => handleTogglePreferiti(libro.id)}>
-                  {preferiti.includes(libro.id) ? "⭐" : "☆"}
-                </button>
-              </td>
-              <td>
-                <button className="danger" onClick={() => handleDelete(libro.id)}>
-                  Elimina
-                </button>
-              </td>
-            </tr>
-          ))}
-          {libri_filtrati.length === 0 && (
+
+        {/* Form aggiunta libro */}
+        <form className="aggiungi-libro" onSubmit={handleAddLibro} style={{ margin: "20px 0" }}>
+          <input
+            name="titolo"
+            placeholder="Titolo"
+            value={nuovoLibro.titolo}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            name="autore"
+            placeholder="Autore"
+            value={nuovoLibro.autore}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            name="anno"
+            placeholder="Anno"
+            value={nuovoLibro.anno}
+            onChange={handleInputChange}
+            required
+            type="number"
+          />
+          <input
+            name="genere"
+            placeholder="Genere"
+            value={nuovoLibro.genere}
+            onChange={handleInputChange}
+            required
+          />
+          <button type="submit">Aggiungi Libro</button>
+        </form>
+
+        <div className="filtri">
+          <input
+            name="autore"
+            placeholder="Filtra per Autore"
+            value={filtri.autore}
+            onChange={handleFilterChange}
+          />
+          <select
+            name="genere"
+            value={filtri.genere}
+            onChange={handleFilterChange}
+          >
+            <option value="">Tutti i Generi</option>
+            {generiUnici.map((genere) => (
+              <option key={genere} value={genere}>
+                {genere}
+              </option>
+            ))}
+          </select>
+        </div>
+        <table>
+          <thead>
             <tr>
-              <td colSpan={7} style={{ textAlign: "center" }}>
-                Nessun libro presente.
-              </td>
+              <th>ID</th>
+              <th>Titolo</th>
+              <th>Autore</th>
+              <th>Anno</th>
+              <th>Genere</th>
+              <th>Preferito</th>
+              <th>Azioni</th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {libri_filtrati.map((libro) => (
+              <tr key={libro.id} className={preferiti.includes(libro.id) ? "preferito" : ""}>
+                <td>{libro.id}</td>
+                <td>{libro.titolo}</td>
+                <td>{libro.autore}</td>
+                <td>{libro.anno}</td>
+                <td>{libro.genere}</td>
+                <td>
+                  <button className="favorite" onClick={() => handleTogglePreferiti(libro.id)}>
+                    {preferiti.includes(libro.id) ? "⭐" : "☆"}
+                  </button>
+                </td>
+                <td>
+                  <button className="danger" onClick={() => handleDelete(libro.id)}>
+                    Elimina
+                  </button>
+                </td>
+              </tr>
+            ))}
+            {libri_filtrati.length === 0 && (
+              <tr>
+                <td colSpan={7} style={{ textAlign: "center" }}>
+                  Nessun libro presente.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
     );
