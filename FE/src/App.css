@@ -219,14 +219,24 @@ button.favorite {
   border: none;
   font-size: 1.3rem;
   cursor: pointer;
+  color: #f5c518;
+  transition: color 0.2s;
 }
 
-button.favorite:hover {
-  transform: scale(1.2);
+.app.dark .favorite {
+  color: #ffe066;
+}
+
+.app.light .favorite {
+  color: #f5c518;
 }
 
 tr.preferito {
   background-color: #fffbe6;
+}
+
+.app.dark .preferito {
+  background: #333a1a;
 }
 
 table {

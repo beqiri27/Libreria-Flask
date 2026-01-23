@@ -4,6 +4,7 @@ import "./App.css";
 const API_URL = "http://localhost:5000/libri";
 
 function App() {
+  
   const [libri, setLibri] = useState([]);
   const [tema, setTema] = useState("dark");
   const [filtri, setFiltri] = useState({
@@ -48,7 +49,7 @@ function App() {
 
   // Elimina libro singolo
   const handleDelete = async (id) => {
-    await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+    await fetch(`${API_URL}/${id}`, { method: ap });
     setLibri(libri.filter((l) => l.id !== id));
   };
 
