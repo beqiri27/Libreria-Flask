@@ -52,6 +52,12 @@ function App() {
     setLibri(libri.filter((l) => l.id !== id));
   };
 
+  // Elimina tutti i libri
+  const handleDeleteAll = async () => {
+    await fetch(API_URL, { method: "DELETE" });
+    setLibri([]);
+  };
+
   // Gestione input form
   const handleInputChange = (e) => {
     setNuovoLibro({ ...nuovoLibro, [e.target.name]: e.target.value });
@@ -92,6 +98,15 @@ function App() {
         <h1>Libreria Flask</h1>
         <button className="tema-toggle" onClick={toggleTema}>
           {tema === "dark" ? "☀️ Tema Chiaro" : "🌙 Tema Scuro"}
+        </button>
+
+        {/* Pulsante elimina tutti i libri */}
+        <button
+          className="danger"
+          style={{ marginBottom: "16px", float: "right" }}
+          onClick={handleDeleteAll}
+        >
+          Elimina Tutti i Libri
         </button>
 
         {/* Form aggiunta libro */}
